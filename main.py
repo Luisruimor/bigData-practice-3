@@ -3,12 +3,19 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def limpiarDatos(airbnbMad):
+    filasIniciales = len( airbnbMad.axes[0])
     #Eliminamos las filas que tengan valores nulos en la columna y 'name'
     airbnbMad = airbnbMad.dropna(subset=["name"])
     #Eliminamos las filas que tengan precio 0 (la columna 'price' no tienen valores nulos ni negativosS, por lo que es necesario eliminar los valores 0)
     airbnbMad = airbnbMad.drop(airbnbMad[airbnbMad.price == 0].index)
     #Eliminamos los valores duplicados en la columna id (si tienen el mismo id, son el mismo alojamiento)
     airbnbMad.drop_duplicates(subset="id")
+
+    filasFinales = len( airbnbMad.axes[0])
+    print("Filas Iniciales: "+ str(filasIniciales)
+    + "\nFilas Finales: " + str(filasFinales)
+    +"\nSe han eliminado " + str(filasIniciales - filasFinales) + " filas")
+
     return airbnbMad
 
 def CountDistritos(airbnbMad):
